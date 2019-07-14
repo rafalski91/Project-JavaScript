@@ -1,0 +1,40 @@
+#welcome {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+  background-size: cover;
+  text-align: center;
+  align-content: center;
+  transition: all 0.9s ease-in-out;
+  overflow: hidden; }
+  #welcome .welcomeshadow {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); }
+  #welcome .welcomeTekst {
+    width: 600px;
+    height: 200px;
+    margin: 30vh auto 50px;
+    color: white; }
+  #welcome p {
+    padding: 50px 30px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    word-spacing: 0.1em;
+    font-size: 48px; }
+  #welcome #welcomeButton {
+    width: 150px;
+    height: 80px;
+    margin: 0 auto;
+    background: initial;
+    color: white;
+    border-radius: 20%;
+    font-size: 22px;
+    align-content: center; }
+  #welcome #welcomeButton:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer; }
+
+/*# sourceMappingURL=main.css.map */
