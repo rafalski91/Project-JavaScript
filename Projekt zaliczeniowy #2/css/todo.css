@@ -1,0 +1,187 @@
+* {
+  cursor: default; }
+
+@media screen and (min-width: 1024px) {
+  #container {
+    z-index: 90;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    font-size: 18px;
+    overflow: hidden; }
+    #container #date {
+      position: absolute;
+      top: 5vh;
+      left: 10vh;
+      font-size: 20px;
+      font-weight: 700; }
+      #container #date:hover {
+        color: white; }
+
+  #headapp {
+    width: 100%;
+    height: 20vh;
+    text-align: center;
+    margin: auto; }
+    #headapp:hover {
+      background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); }
+    #headapp .headlogo {
+      padding: 10px; }
+      #headapp .headlogo p {
+        display: inline-block;
+        height: 30px;
+        margin: 10px -5px;
+        font-size: 2em;
+        font-weight: 700; }
+        #headapp .headlogo p:first-of-type {
+          margin-right: 20px; }
+        #headapp .headlogo p:last-of-type {
+          margin-left: 20px; }
+        #headapp .headlogo p:hover {
+          color: black !important; }
+          #headapp .headlogo p:hover:nth-child(even) {
+            color: white !important; }
+      #headapp .headlogo .leftline {
+        color: black;
+        font-size: 2em; }
+      #headapp .headlogo .rightline {
+        margin-left: -8px;
+        color: white;
+        font-size: 2em; }
+    #headapp .headinput {
+      width: 100%;
+      height: 50px;
+      margin-top: 10px; }
+    #headapp #headtitle {
+      width: 60%;
+      height: 28px;
+      padding: 2px 5px;
+      font-size: 1em;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border: 3px solid #9555b3;
+      cursor: text; }
+    #headapp #headadd {
+      width: 30%;
+      height: 38px;
+      padding: 5px 0px;
+      font-size: 1em;
+      letter-spacing: 0.05em;
+      background: #9555b3;
+      color: #fff;
+      margin-left: -5px;
+      border: 3px solid #9555b3;
+      cursor: pointer; }
+      #headapp #headadd:hover {
+        cursor: pointer;
+        color: #000;
+        font-weight: 700; }
+
+  #bodyapp {
+    width: 100%;
+    height: 100%; }
+    #bodyapp ul {
+      width: 100%;
+      height: 80vh; }
+    #bodyapp li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      width: 100%;
+      height: 60px;
+      padding: 5px 30px;
+      margin: 0;
+      font-weight: 700;
+      font-size: 22px;
+      border-top: 2px solid #9555b3;
+      border-radius: 30%; }
+      #bodyapp li:hover {
+        cursor: pointer;
+        background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+        color: #fff; }
+      #bodyapp li button {
+        width: 110px;
+        height: 30px;
+        padding: 5px;
+        margin: 5px;
+        background: #9555b3;
+        border: 3px solid #9555b3;
+        color: #fff;
+        font-size: 14px; }
+        #bodyapp li button:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+          color: #000;
+          font-weight: 700; }
+
+  .popup {
+    display: none;
+    position: absolute;
+    top: 20vh;
+    left: 25%;
+    width: 50%;
+    height: 160px;
+    padding: 30px;
+    background-image: linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    border: 1px solid #077ad8;
+    border-radius: 20%; }
+    .popup .borderpopup {
+      display: flex;
+      flex-wrap: wrap;
+      width: auto;
+      height: 120px;
+      padding: 20px;
+      background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+      border-radius: 5%; }
+      .popup .borderpopup #popuptitle {
+        width: 100%;
+        height: 30px;
+        margin-top: 10px;
+        font-size: 1em;
+        padding: 5px;
+        border: 1px solid #000;
+        cursor: text; }
+      .popup .borderpopup #popupcancel {
+        width: 50%;
+        height: 40px;
+        background-color: #9555b3;
+        color: #fff;
+        border: 1px solid #000;
+        font-size: 1em;
+        cursor: pointer; }
+        .popup .borderpopup #popupcancel:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+          color: #000;
+          font-weight: 700; }
+      .popup .borderpopup #popupadd {
+        width: 50%;
+        height: 40px;
+        background-color: #9555b3;
+        color: #fff;
+        border: 1px solid #000;
+        font-size: 1em;
+        cursor: pointer; }
+        .popup .borderpopup #popupadd:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+          color: #000;
+          font-weight: 700; }
+
+  .exitpopup {
+    display: none;
+    position: absolute;
+    top: 3vh;
+    right: 5vh; }
+    .exitpopup .fas {
+      font-size: 30px;
+      cursor: pointer; } }
+@media screen and (min-width: 1440px) {
+  .headlogo {
+    padding: 30px; } }
+
+/*# sourceMappingURL=todo.css.map */
