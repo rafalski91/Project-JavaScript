@@ -1,7 +1,6 @@
-let $questList, $questTitle, $questAdd, $questDelete, $questEdit, $questDone, $pop, $popCancel, $popAdd, $popExit, $popTitle, $text;
+let $questList, $questTitle, $questAdd, $questDelete, $questEdit, $questDone, $pop, $popCancel, $popAdd, $popExit, $popTitle;
 
 let counterElement = 0;
-let list = [];
 
 let date;
 n =  new Date();
@@ -31,39 +30,32 @@ function maintodo() {
 }
 
 function pickDOMEelements() {
+  document.getElementById("date").innerHTML = d + " / " + m + " / " + y;
   $questList = document.getElementById('list');
   $questTitle = document.getElementById('headtitle');
   $questAdd = document.getElementById('headadd');
-  $questDelete = document.getElementsByClassName('deleteLi-()')
   $popExit = document.querySelector('.exitpopup');
-  document.getElementById("date").innerHTML = d + " / " + m + " / " + y;
-  $text = document.getElementById('text');
+  $pop = document.querySelector('popup');
+  $questEdit = document.querySelector('edit');
 }
 
 function listenerDOMEvents() {
   $questAdd.addEventListener('click', addButton);
-  // $questDelete.addEventListener('click', deleteElement);
-  // document.addEventListener("keyup", pressEnter);
+  document.addEventListener("keyup", pressEnter);
+  $questList.addEventListener('click', removeItem);
+  $questList.addEventListener('click', doneItem);
+  $questList.addEventListener('click', listClickManager);
 }
 
-// function pressEnter(event) {
-//   if (event.keyCode == 13) {
-//     const toDo = $questTitle.value;
-//       if(toDo) {
-//         newQuest(toDo, id, false, false);
-//         list.push(
-//           {
-//             name: toDo,
-//             id: id,
-//             done: false,
-//             trash: false
-//           }
-//         );
-//         $questTitle.value = "";
-//         id++;
-//       }
-//   }
-// }
+function pressEnter(event) {
+  if (event.keyCode == 13) {
+    const title = $questTitle.value;
+      if(title) {
+        newQuest(title)
+      };
+        $questTitle.value = "";
+  };
+}
 
 function initialList() {
   intList.forEach(todo => {
@@ -84,46 +76,57 @@ function newQuest(title) {
 function createElement(title) {
   const newElement = document.createElement('li');
   newElement.classList.add('newLi-' + ++counterElement);
-  const textElement = document.createTextNode(counterElement + ". " + title);
-  const spamElement = document.createElement('spam');
-  spamElement.classList.add('textLi-' + counterElement);
-  newElement.appendChild(spamElement);
-  spamElement.appendChild(textElement);
+  const textElement = document.createTextNode(title);
+  const spanElement = document.createElement('span');
+  // spanElement.classList.add('textLi-' + counterElement);
+  spanElement.classList.add('text');
+  newElement.appendChild(spanElement);
+  spanElement.appendChild(textElement);
   const divElement = document.createElement('div');
-  spamElement.after(divElement);
+  spanElement.after(divElement);
   const deleteElement = document.createElement('button');
-  deleteElement.classList.add('deleteLi-' + counterElement);
+  // deleteElement.classList.add('deleteLi-' + counterElement);
+  deleteElement.classList.add('delete');
   deleteElement.innerText = "Delete";
   divElement.appendChild(deleteElement);
   const editElement = document.createElement('button');
-  editElement.classList.add('editLi-' + counterElement);
+  // editElement.classList.add('editLi-' + counterElement);
+  editElement.classList.add('edit');
   editElement.innerText = "Edit";
   deleteElement.after(editElement);
   const doneElement = document.createElement('button');
-  doneElement.classList.add('doneLi-' + counterElement);
+  // doneElement.classList.add('doneLi-' + counterElement);
+  doneElement.classList.add('done');
   doneElement.innerText = "Mark as Done";
   editElement.after(doneElement);
-  // const text = '<li class="item">
-  //               <p class="text      "> ${toDo}
+        
   return newElement;
 }
 
-function delte(eventObject){
-  if (eventObject.target = deleteElement){
-    $questList.parentNode.removeChild(newElement);
+  function removeItem(e){
+    let delBtn = e.target.classList.contains('delete');
+    if( delBtn === true ){
+      var parent = e.target.parentElement.parentElement;
+      parent.remove(this);
+    }
+    else {console.log('delete');}
   }
-}
 
-function done(doneElement) {
-  doneElement.classList.toggle(check);
-}
+function doneItem(e) {
+  let doneBtn = e.target.classList.contains('done');
+    if(doneBtn === true){
+      var parents = e.target.parentElement.parentElement;
+      parents.style.textDecoration = 'line-through';
+    }
+    else {console.log('done');}
+  }
 
-// function listClickManager(eventObject) {
-//   if(eventObject.target = sendNewQuest) {
-//     $questList
-//   }
-
-//   else{console.log('nie dziala');}
-// };
+function listClickManager(e) {
+  let editBtn = e.target.classList.contains('edit');
+  if(editBtn === true){
+    $pop.style.display = 'block';
+  }
+  else {console.log('edit');}
+};
 
 document.addEventListener('DOMContentLoaded', maintodo);
