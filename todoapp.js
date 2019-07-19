@@ -43,7 +43,7 @@ function pickDOMEelements() {
 function listenerDOMEvents() {
   $questAdd.addEventListener('click', addButton);
   document.addEventListener("keyup", pressEnter);
-  $questList.addEventListener('click', editItem);
+  $questList.addEventListener('click', listClickManager);
   document.addEventListener('click', popupExit);
 }
 
@@ -112,10 +112,10 @@ function createElement(title) {
   return newElement;
 }
   
-  function removeItem(id){
-    let delBtn = id.target.classList.contains('delete');
+  function removeItem(eventObject){
+    let delBtn = eventObject.target.classList.contains('delete');
       if( delBtn === true ){
-        var parent = id.target.parentElement.parentElement;
+        var parent = eventObject.target.parentElement.parentElement;
         parent.remove(this);
         console.log('delete');
       };
@@ -163,13 +163,13 @@ function popupExit(eventObject) {
   
 function listClickManager(eventObject) {
   if (eventObject.target.className === 'delete') {
-    removeItem(id);
+    removeItem(eventObject);
   };
   if (eventObject.target.className === 'edit') {
-    editItem(id);
+    editItem(eventObject);
   };
   if (eventObject.target.className === 'done') {
-    doneItem(id);
+    doneItem(eventObject);
   };
 }
 console.log('dziala');
