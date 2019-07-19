@@ -1,6 +1,9 @@
-let $questList, $questTitle, $questAdd, $questDelete, $questEdit, $questDone, $pop, $popCancel, $popAdd, $popExit, $popTitle, $buttonList, $questValue;
+let $questList, $questTitle, $questAdd, $questDelete, $questEdit, $questDone, $pop, $popExit;
 
 let id = 0;
+let saveText = "";
+let saveLi = "";
+
 let date;
 n =  new Date();
 y = n.getFullYear();
@@ -35,16 +38,12 @@ function pickDOMEelements() {
   $questAdd = document.getElementById('headadd');
   $popExit = document.querySelector('.exitpopup');
   $pop = document.querySelector('.popup');
-  $buttonList = document.querySelector('button');
-  $questValue = document.querySelectorAll('text');
-  console.log($questValue.innerHTML);
 }
 
 function listenerDOMEvents() {
   $questAdd.addEventListener('click', addButton);
-  document.addEventListener("keyup", pressEnter);
-  $questList.addEventListener('click', listClickManager);
-  document.addEventListener('click', popupExit);
+  document.addEventListener('keyup', pressEnter);
+  document.addEventListener('click', listClickManager);
 }
 
 function pressEnter(event) {
@@ -121,9 +120,9 @@ function createElement(title) {
       };
   }
   
-  function doneItem(e) {
-  let doneBtn = e.target.classList.contains('done');
-  var parents = e.target.parentElement.parentElement;
+  function doneItem(eventObject) {
+  let doneBtn = eventObject.target.classList.contains('done');
+  var parents = eventObject.target.parentElement.parentElement;
   console.log(parents);
     if(doneBtn === true && parents.style.textDecoration !== 'line-through'){
       parents.style.textDecoration = 'line-through';
@@ -135,26 +134,52 @@ function createElement(title) {
       };
   }
   
-  function editItem(e) {
-  let editBtn = e.target.classList.contains('edit');
-  var editElement = e.currentTarget.parentElement;
-  console.log(editBtn);
-  console.log(editElement);
-  console.log(e);
+  function editItem(eventObject) {
+  let editBtn = eventObject.target.classList.contains('edit');
+  console.log(eventObject);
   
   if(editBtn === true){
     $pop.style.display = 'block'
     $popExit.style.display = 'block';
     console.log('edit');
-    var nodeTitle = $questValue.getElementsByClassName('text').innerHTML
-    // nodeTitle.textContent ? nodeTitle.textContent : nodeTitle.innerText;
-    // document.getElementById('popuptitle').value = nodeTitle.value;
-    console.log(nodeTitle);
   };
 }
 
+function addText(eventObject) {
+  let popupAdd = eventObject.target.classList.contains('popupadd');
+  var parA = eventObject.target.parentNode.querySelector('#popuptitle').value
+  var parD = document.querySelector('.newText');
+  console.log(parD);
+  if(popupAdd === true) {
+    $pop.style.display = 'none'
+    $popExit.style.display = 'none';
+    saveText = parA;
+    parD.innerText = saveText;
+  }
+  console.log(parD);
+  var parE = document.querySelector('.newText');
+  parE.classList.remove('newText');
+  console.log(parE);
+}
+
+function editText(eventObject) {
+  var elA = eventObject.target.childNodes
+  console.log(elA);
+}
+
+function popupCancel(eventObject) {
+  let popupCancel = eventObject.target.classList.contains('popupcancel');
+  if (popupCancel === true) {
+    $pop.style.display = 'none'
+    $popExit.style.display = 'none';
+    console.log('exit');
+  }
+}
+
 function popupExit(eventObject) {
-  if (eventObject.target.className === 'exitpopup'){
+  let popupExit = eventObject.target.classList.contains('fas');
+  
+  if (popupExit === true){
     $pop.style.display = 'none'
     $popExit.style.display = 'none';
     console.log('exit');
@@ -167,9 +192,27 @@ function listClickManager(eventObject) {
   };
   if (eventObject.target.className === 'edit') {
     editItem(eventObject);
+    var parA = eventObject.target.parentNode.parentNode.querySelector('.text').textContent;
+    var parC = eventObject.target.parentNode.parentNode.querySelector('.text');
+    parC.classList.add('newText');
+    console.log(parC);
+    var locA = eventObject.target.parentNode.parentNode.querySelector('.text');
+    console.log(locA);
+    var parB = $pop.querySelector('#popuptitle');
+    parB.value = parA;
+    console.log(parB.value);
   };
   if (eventObject.target.className === 'done') {
     doneItem(eventObject);
+  };
+  if (eventObject.target.className === 'fas fa-times') {
+    popupExit(eventObject);
+  };
+  if (eventObject.target.className === 'popupcancel') {
+    popupCancel(eventObject);
+  };
+  if (eventObject.target.className === 'popupadd') {
+    addText(eventObject);
   };
 }
 console.log('dziala');

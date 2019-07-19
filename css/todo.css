@@ -151,7 +151,7 @@
         padding: 5px;
         border: 1px solid #000;
         cursor: text; }
-      .popup .borderpopup #popupcancel {
+      .popup .borderpopup .popupcancel {
         width: 50%;
         height: 40px;
         background-color: #9555b3;
@@ -159,12 +159,12 @@
         border: 1px solid #000;
         font-size: 1em;
         cursor: pointer; }
-        .popup .borderpopup #popupcancel:hover {
+        .popup .borderpopup .popupcancel:hover {
           cursor: pointer;
           transform: scale(1.1);
           color: #000;
           font-weight: 700; }
-      .popup .borderpopup #popupadd {
+      .popup .borderpopup .popupadd {
         width: 50%;
         height: 40px;
         background-color: #9555b3;
@@ -172,7 +172,7 @@
         border: 1px solid #000;
         font-size: 1em;
         cursor: pointer; }
-        .popup .borderpopup #popupadd:hover {
+        .popup .borderpopup .popupadd:hover {
           cursor: pointer;
           transform: scale(1.1);
           color: #000;
