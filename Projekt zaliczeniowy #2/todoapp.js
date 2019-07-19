@@ -1,4 +1,4 @@
-let $questList, $questTitle, $questAdd, $questDelete, $questEdit, $questDone, $pop, $popCancel, $popAdd, $popExit, $popTitle;
+let $questList, $questTitle, $questAdd, $questDelete, $questEdit, $questDone, $pop, $popCancel, $popAdd, $popExit, $popTitle, $buttonList;
 
 let counterElement = 0;
 
@@ -35,15 +35,13 @@ function pickDOMEelements() {
   $questTitle = document.getElementById('headtitle');
   $questAdd = document.getElementById('headadd');
   $popExit = document.querySelector('.exitpopup');
-  $pop = document.querySelector('popup');
-  $questEdit = document.querySelector('edit');
+  $pop = document.querySelector('.popup');
+  $buttonList = document.getElementsByClassName('buttons');
 }
 
 function listenerDOMEvents() {
   $questAdd.addEventListener('click', addButton);
   document.addEventListener("keyup", pressEnter);
-  $questList.addEventListener('click', removeItem);
-  $questList.addEventListener('click', doneItem);
   $questList.addEventListener('click', listClickManager);
 }
 
@@ -83,6 +81,7 @@ function createElement(title) {
   newElement.appendChild(spanElement);
   spanElement.appendChild(textElement);
   const divElement = document.createElement('div');
+  divElement.classList.add('buttons');
   spanElement.after(divElement);
   const deleteElement = document.createElement('button');
   // deleteElement.classList.add('deleteLi-' + counterElement);
@@ -102,31 +101,55 @@ function createElement(title) {
         
   return newElement;
 }
-
+  
   function removeItem(e){
     let delBtn = e.target.classList.contains('delete');
-    if( delBtn === true ){
-      var parent = e.target.parentElement.parentElement;
-      parent.remove(this);
-    }
-    else {console.log('delete');}
+      if( delBtn === true ){
+        var parent = e.target.parentElement.parentElement;
+        parent.remove(this);
+        console.log('delete');
+      };
   }
-
-function doneItem(e) {
+  
+  function doneItem(e) {
   let doneBtn = e.target.classList.contains('done');
-    if(doneBtn === true){
-      var parents = e.target.parentElement.parentElement;
+  var parents = e.target.parentElement.parentElement;
+  console.log(parents);
+    if(doneBtn === true && parents.style.textDecoration !== 'line-through'){
       parents.style.textDecoration = 'line-through';
-    }
-    else {console.log('done');}
+      console.log('line-through');
+      }
+      else if(parents.style.textDecoration == 'line-through'){
+        parents.style.textDecoration = 'none';
+        console.log('not-line-through');
+      };
   }
-
-function listClickManager(e) {
+  
+  function editItem(e) {
   let editBtn = e.target.classList.contains('edit');
+  var editElement = e.currentTarget.parentElement;
+  console.log(editBtn);
+  console.log(editElement);
+  console.log(e);
+  
   if(editBtn === true){
-    $pop.style.display = 'block';
-  }
-  else {console.log('edit');}
-};
+    
+    $pop.style.display = 'block'
+    $popExit.style.display = 'block';
+    console.log('edit');
+  };
+}
 
+  
+// function listClickManager(eventObject) {
+//   console.log($buttonList.childNodes);
+//   let del = $buttonList
+//   let del2 = del.childNodes.classList.contains('delete');
+//   console.log(del, del2);
+//   if (eventObject.target = del) {
+//     removeItem();
+//   };
+// }
+
+console.log('dziala');
 document.addEventListener('DOMContentLoaded', maintodo);

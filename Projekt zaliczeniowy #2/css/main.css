@@ -1,5 +1,6 @@
 .body {
-  font-family: 'Roboto', sans-serif; }
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none; }
 
 #welcome {
   position: sticky;
@@ -39,6 +40,8 @@
     border-radius: 20%;
     font-size: 14px;
     align-content: center; }
+    #welcome #welcomeButton:focus {
+      outline: none; }
   #welcome #welcomeButton:hover {
     background-color: rgba(0, 0, 0, 0.3);
     cursor: pointer; }

@@ -1,5 +1,6 @@
 .body{
   font-family: 'Roboto', sans-serif;
+  text-decoration: none;
 }
 
 #welcome{
@@ -46,6 +47,10 @@
       border-radius: 20%;
       font-size: 14px;
       align-content: center;
+
+      &:focus{
+        outline: none;
+      }
     }
 
   #welcomeButton:hover{

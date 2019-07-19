@@ -93,6 +93,10 @@
       letter-spacing: 0.05em;
       border: 3px solid rgb(149, 85, 179);
       cursor: text;
+
+      &:focus{
+          outline: none;
+        }
     }
   
     #headadd{
@@ -106,6 +110,10 @@
       margin-left: -5px;
       border: 3px solid rgb(149, 85, 179);
       cursor: pointer;
+
+      &:focus{
+        outline: none;
+      }
   
       &:hover{
         cursor: pointer;
@@ -157,6 +165,10 @@
         border: 3px solid rgb(149, 85, 179);
         color: #fff;
         font-size: 14px;
+
+        &:focus{
+          outline: none;
+        }
   
         &:hover{
           cursor: pointer;
