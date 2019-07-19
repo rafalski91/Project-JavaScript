@@ -1,7 +1,6 @@
-let $questList, $questTitle, $questAdd, $questDelete, $questEdit, $questDone, $pop, $popCancel, $popAdd, $popExit, $popTitle, $buttonList;
+let $questList, $questTitle, $questAdd, $questDelete, $questEdit, $questDone, $pop, $popCancel, $popAdd, $popExit, $popTitle, $buttonList, $questValue;
 
-let counterElement = 0;
-
+let id = 0;
 let date;
 n =  new Date();
 y = n.getFullYear();
@@ -36,13 +35,16 @@ function pickDOMEelements() {
   $questAdd = document.getElementById('headadd');
   $popExit = document.querySelector('.exitpopup');
   $pop = document.querySelector('.popup');
-  $buttonList = document.getElementsByClassName('buttons');
+  $buttonList = document.querySelector('button');
+  $questValue = document.querySelectorAll('text');
+  console.log($questValue.innerHTML);
 }
 
 function listenerDOMEvents() {
   $questAdd.addEventListener('click', addButton);
   document.addEventListener("keyup", pressEnter);
-  $questList.addEventListener('click', listClickManager);
+  $questList.addEventListener('click', editItem);
+  document.addEventListener('click', popupExit);
 }
 
 function pressEnter(event) {
@@ -62,8 +64,16 @@ function initialList() {
 }
 
 function addButton() {
-  newQuest($questTitle.value);
-  $questTitle.value = "";
+  var isEmpty = false,
+    tname = $questTitle.value;
+  if (tname === "") {
+    alert ("Title cannot by empty");
+    isEmpty = true;
+  }
+  else if (isEmpty === false) {
+    newQuest($questTitle.value);
+    $questTitle.value = "";
+  }
 }
 
 function newQuest(title) {
@@ -73,7 +83,7 @@ function newQuest(title) {
 
 function createElement(title) {
   const newElement = document.createElement('li');
-  newElement.classList.add('newLi-' + ++counterElement);
+  newElement.classList.add('newLi-' + ++id);
   const textElement = document.createTextNode(title);
   const spanElement = document.createElement('span');
   // spanElement.classList.add('textLi-' + counterElement);
@@ -102,10 +112,10 @@ function createElement(title) {
   return newElement;
 }
   
-  function removeItem(e){
-    let delBtn = e.target.classList.contains('delete');
+  function removeItem(id){
+    let delBtn = id.target.classList.contains('delete');
       if( delBtn === true ){
-        var parent = e.target.parentElement.parentElement;
+        var parent = id.target.parentElement.parentElement;
         parent.remove(this);
         console.log('delete');
       };
@@ -133,23 +143,34 @@ function createElement(title) {
   console.log(e);
   
   if(editBtn === true){
-    
     $pop.style.display = 'block'
     $popExit.style.display = 'block';
     console.log('edit');
+    var nodeTitle = $questValue.getElementsByClassName('text').innerHTML
+    // nodeTitle.textContent ? nodeTitle.textContent : nodeTitle.innerText;
+    // document.getElementById('popuptitle').value = nodeTitle.value;
+    console.log(nodeTitle);
   };
 }
 
+function popupExit(eventObject) {
+  if (eventObject.target.className === 'exitpopup'){
+    $pop.style.display = 'none'
+    $popExit.style.display = 'none';
+    console.log('exit');
+  }
+}
   
-// function listClickManager(eventObject) {
-//   console.log($buttonList.childNodes);
-//   let del = $buttonList
-//   let del2 = del.childNodes.classList.contains('delete');
-//   console.log(del, del2);
-//   if (eventObject.target = del) {
-//     removeItem();
-//   };
-// }
-
+function listClickManager(eventObject) {
+  if (eventObject.target.className === 'delete') {
+    removeItem(id);
+  };
+  if (eventObject.target.className === 'edit') {
+    editItem(id);
+  };
+  if (eventObject.target.className === 'done') {
+    doneItem(id);
+  };
+}
 console.log('dziala');
 document.addEventListener('DOMContentLoaded', maintodo);
