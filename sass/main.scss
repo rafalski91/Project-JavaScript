@@ -52,87 +52,86 @@
         outline: none;
       }
     }
-
-  #welcomeButton:hover{
-    background-color: rgba(0,0,0,0.3);
-    cursor: pointer;
-  }
 }
 
 @media screen and (min-width: 375px){
-#welcome{
-  .welcomeTekst {
-    width: 350px;
-    line-height: 50px;
-    margin-bottom: 0;
+  #welcome{
+    .welcomeTekst {
+      width: 350px;
+      line-height: 50px;
+      margin-bottom: 0;
+    }
+    p {
+      padding: 0;
+      font-size: 32px;
+    }
+    #welcomeButton{
+      width: 120px;
+      height: 60px;
+      font-size: 18px;
+    }
   }
-  p {
-    padding: 0;
-    font-size: 32px;
-  }
-  #welcomeButton{
-    width: 120px;
-    height: 60px;
-    font-size: 18px;
-  }
-}
 }
 
 @media screen and (min-width: 768px){
-#welcome{
-  .welcomeTekst {
-    width: 450px;
-    line-height: 70px;
-    margin-bottom: 50px;
+  #welcome{
+    .welcomeTekst {
+      width: 450px;
+      line-height: 70px;
+      margin-bottom: 50px;
+    }
+    p {
+      padding: 10px 10px;
+      font-size: 48px;
+    }
+    #welcomeButton{
+      width: 130px;
+      height: 70px;
+    }
   }
-  p {
-    padding: 10px 10px;
-    font-size: 48px;
-  }
-  #welcomeButton{
-    width: 130px;
-    height: 70px;
-  }
-}
 }
 
 @media screen and (min-width: 1024px){
-#welcome{
-  .welcomeTekst{
-    width: 700px;
-    height: 350px;
-    margin: 10vh auto 0;
-    line-height: 80px;
-  }
-  p{
-    padding: 50px 30px;
-    font-size: 58px;
-  }
-
-  #welcomeButton{
-      width: 150px;
-      height: 80px;
-      font-size: 22px;
+  #welcome{
+    .welcomeTekst{
+      width: 700px;
+      height: 350px;
+      margin: 10vh auto 0;
+      line-height: 80px;
     }
-}
+    p{
+      padding: 50px 30px;
+      font-size: 58px;
+    }
+
+    #welcomeButton{
+        width: 150px;
+        height: 80px;
+        font-size: 22px;
+          &:hover{
+            background-color: rgba(0,0,0,0.3);
+            cursor: pointer;
+          }
+      }
+  }
 }
 
 @media screen and (min-width: 1440px){
-#welcome{
-  .welcomeTekst{
-    margin: 10vh auto 50px;
-    line-height: 100px;
-  }
-  p{
-    font-size: 68px;
-  }
-
-  #welcomeButton{
-      width: 180px;
-      height: 100px;
-      font-size: 32px;
+  #welcome{
+    .welcomeTekst{
+      margin: 10vh auto 50px;
+      line-height: 100px;
     }
-}
+    p{
+      font-size: 68px;
+    }
+
+    #welcomeButton{
+        width: 180px;
+        height: 100px;
+        font-size: 32px;
+      }
+  }
 }
 
 // @media screen and (min-width: 2560px){
