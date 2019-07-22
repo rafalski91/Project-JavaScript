@@ -12,20 +12,16 @@
   font-size: 1.2em;
   overflow: hidden; }
   #container #date {
-    margin: auto;
+    margin: 20px auto 0;
     text-align: center;
     font-size: 1.2em;
     font-weight: 700; }
-    #container #date:hover {
-      color: white; }
 
 #headapp {
   width: 100%;
   height: 20vh;
   text-align: center;
   margin: auto; }
-  #headapp:hover {
-    background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); }
   #headapp .headlogo {
     padding: 10px; }
     #headapp .headlogo p {
@@ -38,10 +34,6 @@
         margin-right: 20px; }
       #headapp .headlogo p:last-of-type {
         margin-left: 20px; }
-      #headapp .headlogo p:hover {
-        color: black !important; }
-        #headapp .headlogo p:hover:nth-child(even) {
-          color: white !important; }
     #headapp .headlogo .leftline {
       color: black;
       font-size: 1.5em; }
@@ -60,8 +52,7 @@
     font-size: 1em;
     font-weight: 700;
     letter-spacing: 0.05em;
-    border: 3px solid #9555b3;
-    cursor: text; }
+    border: 3px solid #9555b3; }
     #headapp #headtitle:focus {
       outline: none; }
   #headapp .headadd {
@@ -73,21 +64,16 @@
     background: #9555b3;
     color: #fff;
     margin-left: -5px;
-    border: 3px solid #9555b3;
-    cursor: pointer; }
+    border: 3px solid #9555b3; }
     #headapp .headadd:focus {
       outline: none; }
-    #headapp .headadd:hover {
-      cursor: pointer;
-      color: #000;
-      font-weight: 700; }
 
 #bodyapp {
   width: 100%;
-  height: 100%; }
+  min-height: 72.5vh; }
   #bodyapp ul {
     width: 100%;
-    min-height: 80vh; }
+    height: 100%; }
   #bodyapp li {
     display: flex;
     flex-direction: column;
@@ -102,41 +88,46 @@
     font-size: 1em;
     border-top: 2px solid #9555b3;
     border-radius: 30%; }
-    #bodyapp li:hover {
-      cursor: pointer;
-      background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-      color: #fff; }
     #bodyapp li .text {
       width: 100%;
       margin: 20px 0;
       font-size: 1.2em; }
     #bodyapp li .buttons {
-      display: none; }
+      display: flex;
+      width: 100%; }
     #bodyapp li button {
       width: 100%;
-      height: 30px;
+      height: 40px;
       padding: 5px;
       margin: 5px;
       background: #9555b3;
       border: 3px solid #9555b3;
       color: #fff;
-      font-size: 1em; }
+      font-size: 1em;
+      text-align: center; }
       #bodyapp li button:focus {
         outline: none; }
-      #bodyapp li button:hover {
-        cursor: pointer;
-        transform: scale(1.1);
-        color: #000;
-        font-weight: 700; }
+
+.popupOverlay {
+  z-index: 98;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: not-allowed; }
 
 .popup {
+  z-index: 99;
   display: none;
   position: absolute;
   top: 20vh;
-  left: 25%;
-  width: 50%;
-  height: 160px;
-  padding: 30px;
+  left: 3vh;
+  width: 80%;
+  height: 130px;
+  padding: 15px;
   background-image: linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
   border: 1px solid #077ad8;
   border-radius: 20%; }
@@ -145,240 +136,153 @@
     flex-wrap: wrap;
     width: auto;
     height: 120px;
-    padding: 20px;
+    padding: 5px;
     background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
     border-radius: 5%; }
     .popup .borderpopup #popuptitle {
       width: 100%;
       height: 30px;
       margin-top: 10px;
-      font-size: 1em;
+      font-size: 0.6em;
       padding: 5px;
-      border: 1px solid #000;
-      cursor: text; }
+      border: 1px solid #000; }
     .popup .borderpopup .popupcancel {
       width: 50%;
       height: 40px;
       background-color: #9555b3;
       color: #fff;
       border: 1px solid #000;
-      font-size: 1em;
-      cursor: pointer; }
-      .popup .borderpopup .popupcancel:hover {
-        cursor: pointer;
-        transform: scale(1.1);
-        color: #000;
-        font-weight: 700; }
+      font-size: 1em; }
     .popup .borderpopup .popupadd {
       width: 50%;
       height: 40px;
       background-color: #9555b3;
       color: #fff;
       border: 1px solid #000;
-      font-size: 1em;
-      cursor: pointer; }
-      .popup .borderpopup .popupadd:hover {
-        cursor: pointer;
-        transform: scale(1.1);
-        color: #000;
-        font-weight: 700; }
+      font-size: 1em; }
 
 .exitpopup {
+  z-index: 99;
   display: none;
   position: absolute;
   top: 3vh;
   right: 5vh; }
   .exitpopup .fas {
-    font-size: 30px;
-    cursor: pointer; }
+    font-size: 30px; }
 
-@media screen and (min-width: 1024px) {
-  #container {
-    z-index: 90;
+@media screen and (min-width: 425px) {
+  .popup {
+    left: 5vh; } }
+@media screen and (min-width: 768px) {
+  #container #date {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-    font-size: 18px;
-    overflow: hidden; }
-    #container #date {
-      position: absolute;
-      top: 5vh;
-      left: 10vh;
-      font-size: 20px;
-      font-weight: 700; }
-      #container #date:hover {
-        color: white; }
+    top: 5vh;
+    left: 10vh;
+    font-size: 20px; }
 
-  #headapp {
-    width: 100%;
-    height: 20vh;
-    text-align: center;
-    margin: auto; }
-    #headapp:hover {
-      background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); }
-    #headapp .headlogo {
-      padding: 10px; }
-      #headapp .headlogo p {
-        display: inline-block;
-        height: 30px;
-        margin: 10px -5px;
-        font-size: 2em;
-        font-weight: 700; }
-        #headapp .headlogo p:first-of-type {
-          margin-right: 20px; }
-        #headapp .headlogo p:last-of-type {
-          margin-left: 20px; }
-        #headapp .headlogo p:hover {
-          color: black !important; }
-          #headapp .headlogo p:hover:nth-child(even) {
-            color: white !important; }
-      #headapp .headlogo .leftline {
-        color: black;
-        font-size: 2em; }
-      #headapp .headlogo .rightline {
-        margin-left: -8px;
-        color: white;
-        font-size: 2em; }
-    #headapp .headinput {
-      width: 100%;
-      height: 50px;
-      margin-top: 10px; }
-    #headapp #headtitle {
-      width: 60%;
-      height: 28px;
-      padding: 2px 5px;
-      font-size: 1em;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      border: 3px solid #9555b3;
-      cursor: text; }
-      #headapp #headtitle:focus {
-        outline: none; }
-    #headapp .headadd {
-      width: 30%;
-      height: 38px;
-      padding: 5px 0px;
-      font-size: 1em;
-      letter-spacing: 0.05em;
-      background: #9555b3;
-      color: #fff;
-      margin-left: -5px;
-      border: 3px solid #9555b3;
-      cursor: pointer; }
-      #headapp .headadd:focus {
-        outline: none; }
-      #headapp .headadd:hover {
+  .headlogo p {
+    font-size: 2em; }
+  .headlogo .leftline {
+    font-size: 2em; }
+  .headlogo .rightline {
+    font-size: 2em; }
+
+  #bodyapp {
+    min-height: 80vh; }
+    #bodyapp li {
+      flex-direction: row;
+      font-size: 16px; }
+      #bodyapp li .text {
+        width: 60%; }
+      #bodyapp li .buttons {
+        width: auto; }
+      #bodyapp li button {
+        width: 60px;
+        font-size: 14px; }
+
+  .popup {
+    left: 14vh;
+    width: 70%;
+    height: 160px;
+    padding: 30px; }
+    .popup .borderpopup {
+      padding: 20px; }
+      .popup .borderpopup #popuptitle {
+        font-size: 1em; }
+
+  .exitpopup .fas {
+    font-size: 30px; } }
+@media screen and (min-width: 1024px) {
+  #container #date:hover {
+    color: white; }
+
+  #headapp:hover {
+    background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); }
+  #headapp .headlogo p {
+    font-size: 2em; }
+    #headapp .headlogo p:hover {
+      color: black !important; }
+      #headapp .headlogo p:hover:nth-child(even) {
+        color: white !important; }
+  #headapp .headlogo .leftline {
+    font-size: 2em; }
+  #headapp .headlogo .rightline {
+    font-size: 2em; }
+  #headapp #headtitle {
+    cursor: text; }
+  #headapp .headadd {
+    cursor: pointer; }
+    #headapp .headadd:hover {
+      cursor: pointer;
+      color: #000;
+      font-weight: 700; }
+
+  #bodyapp li {
+    flex-direction: row;
+    font-size: 22px; }
+    #bodyapp li:hover {
+      background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+      color: #fff; }
+    #bodyapp li button {
+      width: 120px;
+      font-size: 14px; }
+      #bodyapp li button:hover {
         cursor: pointer;
+        transform: scale(1.1);
         color: #000;
         font-weight: 700; }
 
-  #bodyapp {
-    width: 100%;
-    height: 100%; }
-    #bodyapp ul {
-      width: 100%;
-      height: 80vh; }
-    #bodyapp li {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-sizing: border-box;
-      width: 100%;
-      height: 60px;
-      padding: 5px 30px;
-      margin: 0;
-      font-weight: 700;
-      font-size: 22px;
-      border-top: 2px solid #9555b3;
-      border-radius: 30%; }
-      #bodyapp li:hover {
-        cursor: pointer;
-        background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-        color: #fff; }
-      #bodyapp li button {
-        width: 110px;
-        height: 30px;
-        padding: 5px;
-        margin: 5px;
-        background: #9555b3;
-        border: 3px solid #9555b3;
-        color: #fff;
-        font-size: 14px; }
-        #bodyapp li button:focus {
-          outline: none; }
-        #bodyapp li button:hover {
-          cursor: pointer;
-          transform: scale(1.1);
-          color: #000;
-          font-weight: 700; }
-
   .popup {
-    display: none;
-    position: absolute;
     top: 20vh;
     left: 25%;
-    width: 50%;
-    height: 160px;
-    padding: 30px;
-    background-image: linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-    border: 1px solid #077ad8;
-    border-radius: 20%; }
-    .popup .borderpopup {
-      display: flex;
-      flex-wrap: wrap;
-      width: auto;
-      height: 120px;
-      padding: 20px;
-      background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-      border-radius: 5%; }
-      .popup .borderpopup #popuptitle {
-        width: 100%;
-        height: 30px;
-        margin-top: 10px;
-        font-size: 1em;
-        padding: 5px;
-        border: 1px solid #000;
-        cursor: text; }
-      .popup .borderpopup .popupcancel {
-        width: 50%;
-        height: 40px;
-        background-color: #9555b3;
-        color: #fff;
-        border: 1px solid #000;
-        font-size: 1em;
-        cursor: pointer; }
-        .popup .borderpopup .popupcancel:hover {
-          cursor: pointer;
-          transform: scale(1.1);
-          color: #000;
-          font-weight: 700; }
-      .popup .borderpopup .popupadd {
-        width: 50%;
-        height: 40px;
-        background-color: #9555b3;
-        color: #fff;
-        border: 1px solid #000;
-        font-size: 1em;
-        cursor: pointer; }
-        .popup .borderpopup .popupadd:hover {
-          cursor: pointer;
-          transform: scale(1.1);
-          color: #000;
-          font-weight: 700; }
+    width: 50%; }
+    .popup #popuptitle {
+      cursor: text; }
+    .popup .popupcancel {
+      cursor: pointer; }
+      .popup .popupcancel:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        color: #000;
+        font-weight: 700; }
+    .popup .popupadd {
+      cursor: pointer; }
+      .popup .popupadd:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        color: #000;
+        font-weight: 700; }
 
-  .exitpopup {
-    display: none;
-    position: absolute;
-    top: 3vh;
-    right: 5vh; }
-    .exitpopup .fas {
-      font-size: 30px;
-      cursor: pointer; } }
+  .exitpopup .fas {
+    cursor: pointer; } }
 @media screen and (min-width: 1440px) {
   .headlogo {
-    padding: 30px; } }
+    padding: 30px; }
+
+  #container #date {
+    position: absolute;
+    top: 2vh;
+    left: 10vh;
+    font-size: 28px; } }
 
 /*# sourceMappingURL=todo.css.map */

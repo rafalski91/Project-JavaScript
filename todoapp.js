@@ -1,4 +1,4 @@
-let $questList, $questTitle, $questAdd, $pop, $popExit, $questButtons;
+let $questList, $questTitle, $questAdd, $pop, $popExit, $popOverlay;
 
 let id = 0;
 let saveText = "";
@@ -28,7 +28,7 @@ function pickDOMEelements() {
   $questAdd = document.querySelector('.headinput');
   $pop = document.querySelector('.popup');
   $popExit = document.querySelector('.exitpopup');
-  $questButtons = document.querySelector('.buttons');
+  $popOverlay = document.querySelector('.popupOverlay');
 }
 
 function listenerDOMEvents() {
@@ -37,6 +37,7 @@ function listenerDOMEvents() {
   $questList.addEventListener('click', listClickManager);
   $pop.addEventListener('click', listClickManager);
   $popExit.addEventListener('click', listClickManager);
+  // window.addEventListener('resize', listClickManager);
 }
 
 function initialList() {
@@ -66,7 +67,8 @@ function newQuest(title) {
 function createElement(title) {
   const newElement = document.createElement('li');
   newElement.classList.add('newLi-' + ++id);
-  const textElement = document.createTextNode(title);
+  let dateElement = d + " / " + m + " / " + y;
+  const textElement = document.createTextNode(dateElement + " - " + title);
   const spanElement = document.createElement('span');
   spanElement.classList.add('text');
   newElement.appendChild(spanElement);
@@ -84,7 +86,7 @@ function createElement(title) {
       deleteElement.after(editElement);
       const doneElement = document.createElement('button');
       doneElement.classList.add('done');
-      doneElement.innerText = "Mark as Done";
+      doneElement.innerText = "Done";
       editElement.after(doneElement);
   return newElement;
 }
@@ -99,12 +101,14 @@ function createElement(title) {
   
   function doneItem(eventObject) {
   let doneBtn = eventObject.target.classList.contains('done');
+  console.log(doneBtn)
   var parents = eventObject.target.parentElement.parentElement;
-    if(doneBtn === true && parents.style.textDecoration !== 'line-through'){
-      parents.style.textDecoration = 'line-through';
+  console.log(parents)
+    if(doneBtn === true && parents.firstChild.style.textDecoration !== 'line-through'){
+      parents.firstChild.style.textDecoration = 'line-through';
       }
-      else if(parents.style.textDecoration == 'line-through'){
-        parents.style.textDecoration = 'none';
+      else if(parents.firstChild.style.textDecoration == 'line-through'){
+        parents.firstChild.style.textDecoration = 'none';
       };
   }
   
@@ -113,6 +117,7 @@ function createElement(title) {
     if(editBtn === true){
       $pop.style.display = 'block';
       $popExit.style.display = 'block';
+      $popOverlay.style.display = 'block';
     };
 }
 
@@ -123,6 +128,7 @@ function addText(eventObject) {
   if(popupAdd === true) {
     $pop.style.display = 'none';
     $popExit.style.display = 'none';
+    $popOverlay.style.display = 'none';
     saveText = editText;
     editedText.innerText = saveText;
   };
@@ -136,21 +142,32 @@ function popupCancel(eventObject) {
   if (popupCancel === true || popupExit === true) {
     $pop.style.display = 'none';
     $popExit.style.display = 'none';
+    $popOverlay.style.display = 'none';
   };
 }
 
-function mobileDisplayButtons() {
-  const clientWidth = window.matchMedia("screen and (max-width:750px)");
-  console.log(clientWidth);
-  if (clientWidth === true) {
-    $questButtons.style.display = 'block';
-  }
-}
+// function mobileDisplayButtons(eventObject) {
+//   let menu = eventObject.target.parentNode.querySelector('.buttons');
+//   console.log(menu.style.display);
+//   if (menu.style.display == '') {
+//     menu.style.display = 'block';
+//     console.log('nice');
+//   }
+//   else if (menu.style.display === 'none') {
+//     menu.style.display = 'block';
+//     console.log('block');
+//   }
+//   else if (menu.style.display === 'block') {
+//   menu.style.display === 'none';
+//   console.log('none');
+//   }
+// }
 
 function listClickManager(eventObject) {
-  if(eventObject.target.className === 'text') {
-    mobileDisplayButtons(eventObject);
-  }
+  // if(this.innerWidth < 768 && eventObject.target.className === 'text') {
+  //     mobileDisplayButtons(eventObject);
+  //   }
+  
   if (eventObject.target.className === 'delete') {
     removeItem(eventObject);
   };

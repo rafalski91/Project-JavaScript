@@ -14,15 +14,10 @@
   overflow: hidden;
 
   #date{
-    margin: auto;
+    margin: 20px auto 0;
     text-align: center;
     font-size: 1.2em;
     font-weight: 700;
-    
-
-    &:hover{
-      color: invert($color: #000000) 
-    }
   }
 }
 
@@ -33,10 +28,6 @@
   height: 20vh;
   text-align: center;
   margin: auto;
-
-  &:hover{
-    background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-  }
 
   .headlogo{
     padding: 10px;
@@ -54,14 +45,6 @@
 
       &:last-of-type{
         margin-left: 20px;
-      }
-
-      &:hover{
-        color: invert($color: #ffffff) !important;
-
-        &:nth-child(even){
-          color: invert($color: #000000) !important;
-        }
       }
     }
 
@@ -91,7 +74,6 @@
     font-weight: 700;
     letter-spacing: 0.05em;
     border: 3px solid rgb(149, 85, 179);
-    cursor: text;
 
     &:focus{
         outline: none;
@@ -108,16 +90,9 @@
     color: #fff;
     margin-left: -5px;
     border: 3px solid rgb(149, 85, 179);
-    cursor: pointer;
 
     &:focus{
       outline: none;
-    }
-
-    &:hover{
-      cursor: pointer;
-      color: #000;
-      font-weight: 700;
     }
   }
 }
@@ -126,11 +101,11 @@
 
 #bodyapp{
   width: 100%;
-  height: 100%;
+  min-height: 72.5vh;
 
   ul{
     width: 100%;
-    min-height: 80vh;
+    height: 100%;
   }
 
   li{
@@ -148,13 +123,6 @@
     border-top: 2px solid rgb(149, 85, 179);
     border-radius: 30%;
 
-    &:hover{
-      cursor: pointer;
-      background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-      // color: rgb(107, 10, 10);
-      color: #fff;
-    }
-
     .text{
       width: 100%;
       margin: 20px 0;
@@ -162,28 +130,23 @@
     }
 
     .buttons{
-      display: none;
+      display: flex;
+      width: 100%;
     }
 
     button{
       width: 100%;
-      height: 30px;
+      height: 40px;
       padding: 5px;
       margin: 5px;
       background: rgb(149, 85, 179);
       border: 3px solid rgb(149, 85, 179);
       color: #fff;
       font-size: 1em;
+      text-align: center;
 
       &:focus{
         outline: none;
-      }
-
-      &:hover{
-        cursor: pointer;
-        transform: scale(1.1);
-        color: #000;
-        font-weight: 700;
       }
     }
 
@@ -191,144 +154,175 @@
 }
 
 //////// POPUP ////////
+  .popupOverlay{
+    z-index: 98;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    cursor: not-allowed;
+  }
+  .popup{
+    z-index: 99;
+    display: none;
+    position: absolute;
+    top: 20vh;
+    left: 3vh;
+    width: 80%;
+    height: 130px;
+    padding: 15px;
+    background-image: linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    border: 1px solid rgb(7, 122, 216);
+    border-radius: 20%;
+    
 
-.popup{
-  display: none;
-  position: absolute;
-  top: 20vh;
-  left: 25%;
-  width: 50%;
-  height: 160px;
-  padding: 30px;
-  background-image: linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-  border: 1px solid rgb(7, 122, 216);
-  border-radius: 20%;
-
-  .borderpopup{
-    display: flex;
-    flex-wrap: wrap;
-    width: auto;
-    height: 120px;
-    padding: 20px;
-    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-    border-radius: 5%;
-
-    #popuptitle{
-      width: 100%;
-      height: 30px;
-      margin-top: 10px;
-      font-size: 1em;
+    .borderpopup{
+      display: flex;
+      flex-wrap: wrap;
+      width: auto;
+      height: 120px;
       padding: 5px;
-      border: 1px solid #000;
-      cursor: text;
-    }
+      background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+      border-radius: 5%;
 
-    .popupcancel{
-      width: 50%;
-      height: 40px;
-      background-color: rgb(149, 85, 179);
-      color: #fff;
-      border: 1px solid #000;
-      font-size: 1em;
-      cursor: pointer;
-
-      &:hover{
-        cursor: pointer;
-        transform: scale(1.1);
-        color: #000;
-        font-weight: 700;
+      #popuptitle{
+        width: 100%;
+        height: 30px;
+        margin-top: 10px;
+        font-size: 0.6em;
+        padding: 5px;
+        border: 1px solid #000;
       }
-    }
 
-    .popupadd{
-      width: 50%;
-      height: 40px;
-      background-color: rgb(149, 85, 179);
-      color: #fff;
-      border: 1px solid #000;
-      font-size: 1em;
-      cursor: pointer;
+      .popupcancel{
+        width: 50%;
+        height: 40px;
+        background-color: rgb(149, 85, 179);
+        color: #fff;
+        border: 1px solid #000;
+        font-size: 1em;
+      }
 
-      &:hover{
-        cursor: pointer;
-        transform: scale(1.1);
-        color: #000;
-        font-weight: 700;
+      .popupadd{
+        width: 50%;
+        height: 40px;
+        background-color: rgb(149, 85, 179);
+        color: #fff;
+        border: 1px solid #000;
+        font-size: 1em;
       }
     }
   }
-}
 
-.exitpopup{
-  display: none;
-  position: absolute;
-  top: 3vh;
-  right: 5vh;
+  .exitpopup{
+    z-index: 99;
+    display: none;
+    position: absolute;
+    top: 3vh;
+    right: 5vh;
 
-  .fas{
-    font-size: 30px;
-    cursor: pointer;
+    .fas{
+      font-size: 30px;
+    }
+  }
+
+@media screen and (min-width: 425px){
+  .popup{
+    left: 5vh;
   }
 }
-@media screen and (min-width: 375px){
+@media screen and (min-width: 768px){
+  #container{
+    #date{
+      position: absolute;
+      top: 5vh;
+      left: 10vh;
+      font-size: 20px;
+    }
+  }
 
+///// HEAD APP /////
+
+  .headlogo{
+    p{
+      font-size: 2em;
+    }
+
+    .leftline{
+      font-size: 2em;
+    }
+
+    .rightline{
+      font-size: 2em;
+    }
+  }
+
+////// BODY APP //////
+
+  #bodyapp{
+    min-height: 80vh;
+      li{
+        flex-direction: row;
+        font-size: 16px;
+
+      .text{
+        width: 60%;
+      }
+
+      .buttons{
+        width: auto;
+      }
+
+      button{
+        width: 60px;
+        font-size: 14px;
+      }
+    }
+  }
+  //////// POPUP ////////
+
+  .popup{
+    left: 14vh;
+    width: 70%;
+    height: 160px;
+    padding: 30px;
+
+    .borderpopup{
+      padding: 20px;
+
+      #popuptitle{
+        font-size: 1em;
+      }
+    }
+  }
+
+  .exitpopup{
+    .fas{
+      font-size: 30px;
+    }
+  }
 }
 
 @media screen and (min-width: 1024px){
 #container{
-  z-index: 90;
-  position: absolute;
-  top:0;
-  left:0;
-  width: 100%;
-  height: auto;
-  background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-  font-size: 18px;
-  overflow: hidden;
-
-  #date{
-    position: absolute;
-    top: 5vh;
-    left: 10vh;
-    font-size: 20px;
-    font-weight: 700;
-
-    &:hover{
-      color: invert($color: #000000) 
-    }
+  #date:hover{
+    color: invert($color: #000000) 
   }
 }
 
 ///// HEAD APP /////
 
 #headapp{
-  width: 100%;
-  height: 20vh;
-  text-align: center;
-  margin: auto;
-
   &:hover{
     background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
   }
 
   .headlogo{
-    padding: 10px;
-
     p{
-      display: inline-block;
-      height: 30px;
-      margin: 10px -5px;
-      // color: rgb(107, 10, 10);
       font-size: 2em;
-      font-weight: 700;
-
-      &:first-of-type{
-        margin-right: 20px;
-      }
-
-      &:last-of-type{
-        margin-left: 20px;
-      }
 
       &:hover{
         color: invert($color: #ffffff) !important;
@@ -340,53 +334,20 @@
     }
 
     .leftline{
-      color: black;
       font-size: 2em;
     }
 
     .rightline{
-      margin-left: -8px;
-      color: white;
       font-size: 2em;
     }
   }
 
-  .headinput{
-    width: 100%;
-    height: 50px;
-    margin-top: 10px;
-  }
-
   #headtitle{
-    width: 60%;
-    height: 28px;
-    padding: 2px 5px;
-    font-size: 1em;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    border: 3px solid rgb(149, 85, 179);
     cursor: text;
-
-    &:focus{
-        outline: none;
-      }
   }
 
   .headadd{
-    width: 30%;
-    height: 38px;
-    padding: 5px 0px;
-    font-size: 1em;
-    letter-spacing: 0.05em;
-    background: rgb(149, 85, 179);
-    color: #fff;
-    margin-left: -5px;
-    border: 3px solid rgb(149, 85, 179);
     cursor: pointer;
-
-    &:focus{
-      outline: none;
-    }
 
     &:hover{
       cursor: pointer;
@@ -399,49 +360,18 @@
 ////// BODY APP //////
 
 #bodyapp{
-  width: 100%;
-  height: 100%;
-
-  ul{
-    width: 100%;
-    height: 80vh;
-    
-  }
-
   li{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    width: 100%;
-    height: 60px;
-    padding: 5px 30px;
-    margin: 0;
-    font-weight: 700;
+    flex-direction: row;
     font-size: 22px;
-    border-top: 2px solid rgb(149, 85, 179);
-    border-radius: 30%;
 
     &:hover{
-      cursor: pointer;
       background-image: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-      // color: rgb(107, 10, 10);
       color: #fff;
     }
 
     button{
-      width: 110px;
-      height: 30px;
-      padding: 5px;
-      margin: 5px;
-      background: rgb(149, 85, 179);
-      border: 3px solid rgb(149, 85, 179);
-      color: #fff;
+      width: 120px;
       font-size: 14px;
-
-      &:focus{
-        outline: none;
-      }
 
       &:hover{
         cursor: pointer;
@@ -450,50 +380,21 @@
         font-weight: 700;
       }
     }
-
   }
 }
 
 //////// POPUP ////////
 
 .popup{
-  display: none;
-  position: absolute;
   top: 20vh;
   left: 25%;
   width: 50%;
-  height: 160px;
-  padding: 30px;
-  background-image: linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-  border: 1px solid rgb(7, 122, 216);
-  border-radius: 20%;
-
-  .borderpopup{
-    display: flex;
-    flex-wrap: wrap;
-    width: auto;
-    height: 120px;
-    padding: 20px;
-    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-    border-radius: 5%;
 
     #popuptitle{
-      width: 100%;
-      height: 30px;
-      margin-top: 10px;
-      font-size: 1em;
-      padding: 5px;
-      border: 1px solid #000;
       cursor: text;
     }
 
     .popupcancel{
-      width: 50%;
-      height: 40px;
-      background-color: rgb(149, 85, 179);
-      color: #fff;
-      border: 1px solid #000;
-      font-size: 1em;
       cursor: pointer;
 
       &:hover{
@@ -505,39 +406,33 @@
     }
 
     .popupadd{
-      width: 50%;
-      height: 40px;
-      background-color: rgb(149, 85, 179);
-      color: #fff;
-      border: 1px solid #000;
-      font-size: 1em;
       cursor: pointer;
 
-      &:hover{
-        cursor: pointer;
-        transform: scale(1.1);
-        color: #000;
-        font-weight: 700;
+        &:hover{
+          cursor: pointer;
+          transform: scale(1.1);
+          color: #000;
+          font-weight: 700;
+        }
       }
     }
-  }
+    .exitpopup{
+      .fas{
+        cursor: pointer;
+      }
+    }
 }
-
-.exitpopup{
-  display: none;
-  position: absolute;
-  top: 3vh;
-  right: 5vh;
-
-  .fas{
-    font-size: 30px;
-    cursor: pointer;
-  }
-}
-}
-
 @media screen and (min-width: 1440px){
   .headlogo{
     padding: 30px;
+  }
+
+  #container{
+    #date{
+      position: absolute;
+      top: 2vh;
+      left: 10vh;
+      font-size: 28px;
+    }
   }
 }
