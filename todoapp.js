@@ -7,7 +7,6 @@ let saveLi = "";
 let date;
 n =  new Date();
 y = n.getFullYear();
-var month = new Array();
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 m = monthNames[n.getMonth() + 1];
@@ -32,11 +31,11 @@ function pickDOMEelements() {
 }
 
 function listenerDOMEvents() {
-  $questAdd.addEventListener('click', listClickManager);
-  $questAdd.addEventListener('keyup', listClickManager);
+  $questAdd.addEventListener('click', addClickHandler);
+  $questAdd.addEventListener('keyup', enterClickHandler);
   $questList.addEventListener('click', listClickManager);
-  $pop.addEventListener('click', listClickManager);
-  $popExit.addEventListener('click', listClickManager);
+  $pop.addEventListener('click', popupClickManager);
+  $popExit.addEventListener('click', popupClickManager);
   // window.addEventListener('resize', listClickManager);
 }
 
@@ -162,12 +161,35 @@ function popupCancel(eventObject) {
 //   console.log('none');
 //   }
 // }
+function addClickHandler(eventObject) {
+  if (eventObject.target.className === 'headadd') {
+    addButton(eventObject);
+  };
+}
+
+function enterClickHandler(event) {
+  if (event.keyCode == 13) {
+    const title = $questTitle.value;
+    if(title) {
+      newQuest(title);
+    };
+      $questTitle.value = "";
+  };
+}
+
+function popupClickManager(eventObject) {
+  if (eventObject.target.className === 'popupcancel' || eventObject.target.className === 'fas fa-times') {
+    popupCancel(eventObject);
+  };
+  if (eventObject.target.className === 'popupadd') {
+    addText(eventObject);
+  };
+}
 
 function listClickManager(eventObject) {
   // if(this.innerWidth < 768 && eventObject.target.className === 'text') {
   //     mobileDisplayButtons(eventObject);
   //   }
-  
   if (eventObject.target.className === 'delete') {
     removeItem(eventObject);
   };
@@ -181,22 +203,6 @@ function listClickManager(eventObject) {
   };
   if (eventObject.target.className === 'done') {
     doneItem(eventObject);
-  };
-  if (eventObject.target.className === 'popupcancel' || eventObject.target.className === 'fas fa-times') {
-    popupCancel(eventObject);
-  };
-  if (eventObject.target.className === 'popupadd') {
-    addText(eventObject);
-  };
-  if (eventObject.target.className === 'headadd') {
-    addButton(eventObject);
-  };
-  if (event.keyCode == 13) {
-    const title = $questTitle.value;
-    if(title) {
-      newQuest(title);
-    };
-      $questTitle.value = "";
   };
 }
 console.log('Done');
