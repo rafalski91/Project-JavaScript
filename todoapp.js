@@ -1,8 +1,6 @@
 let $questList, $questTitle, $questAdd, $pop, $popExit, $popOverlay;
 
-let id = 0;
-let saveText = "";
-let saveLi = "";
+let id = 1;
 
 let date;
 n = new Date();
@@ -15,7 +13,7 @@ d = n.getDate();
 
 const intList = ['Dodawaj, edytuj, usuwaj, oznaczaj zadania'];
 
-function maintodo() {
+function mainTodo() {
    pickDOMEelements();
    listenerDOMEvents();
    initialList();
@@ -66,7 +64,7 @@ function newQuest(title) {
 
 function createElement(title) {
    const newElement = document.createElement('li');
-   newElement.classList.add('newLi-' + ++id);
+   newElement.classList.add('newLi-' + id);
    let dateElement = d + " / " + m + " / " + y;
    const textElement = document.createTextNode(dateElement + " - " + title);
    const spanElement = document.createElement('span');
@@ -88,6 +86,7 @@ function createElement(title) {
    doneElement.classList.add('done');
    doneElement.innerText = "Done";
    editElement.after(doneElement);
+   id++;
    return newElement;
 }
 
@@ -126,8 +125,7 @@ function addText(eventObject) {
       $pop.style.display = 'none';
       $popExit.style.display = 'none';
       $popOverlay.style.display = 'none';
-      saveText = editText;
-      editedText.innerText = saveText;
+      editedText.innerText = editText;
    };
    var parE = document.querySelector('.newText');
    parE.classList.remove('newText');
