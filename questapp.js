@@ -13,7 +13,7 @@ d = n.getDate();
 
 const intList = ['Dodawaj, edytuj, usuwaj, oznaczaj zadania'];
 
-function mainTodo() {
+function mainQuest() {
    pickDOMEelements();
    listenerDOMEvents();
    initialList();
@@ -35,12 +35,11 @@ function listenerDOMEvents() {
    $questList.addEventListener('click', listClickManager);
    $pop.addEventListener('click', popupClickManager);
    $popExit.addEventListener('click', popupClickManager);
-   // window.addEventListener('resize', listClickManager);
 }
 
 function initialList() {
-   intList.forEach(todo => {
-      newQuest(todo);
+   intList.forEach(quest => {
+      newQuest(quest);
    });
 }
 
@@ -64,7 +63,7 @@ function newQuest(title) {
 
 function createElement(title) {
    const newElement = document.createElement('li');
-   newElement.classList.add('newLi-' + id);
+   newElement.classList.add('Quest-' + id);
    let dateElement = d + " / " + m + " / " + y;
    const textElement = document.createTextNode(dateElement + " - " + title);
    const spanElement = document.createElement('span');
@@ -127,8 +126,8 @@ function addText(eventObject) {
       $popOverlay.style.display = 'none';
       editedText.innerText = editText;
    };
-   var parE = document.querySelector('.newText');
-   parE.classList.remove('newText');
+   var extraClass = document.querySelector('.newText');
+   extraClass.classList.remove('newText');
 }
 
 function popupCancel(eventObject) {
@@ -141,22 +140,6 @@ function popupCancel(eventObject) {
    };
 }
 
-// function mobileDisplayButtons(eventObject) {
-//   let menu = eventObject.target.parentNode.querySelector('.buttons');
-//   console.log(menu.style.display);
-//   if (menu.style.display == '') {
-//     menu.style.display = 'block';
-//     console.log('nice');
-//   }
-//   else if (menu.style.display === 'none') {
-//     menu.style.display = 'block';
-//     console.log('block');
-//   }
-//   else if (menu.style.display === 'block') {
-//   menu.style.display === 'none';
-//   console.log('none');
-//   }
-// }
 function addClickHandler(eventObject) {
    if (eventObject.target.className === 'headadd') {
       addButton(eventObject);
@@ -183,9 +166,6 @@ function popupClickManager(eventObject) {
 }
 
 function listClickManager(eventObject) {
-   // if(this.innerWidth < 768 && eventObject.target.className === 'text') {
-   //     mobileDisplayButtons(eventObject);
-   //   }
    if (eventObject.target.className === 'delete') {
       removeItem(eventObject);
    };
@@ -201,5 +181,5 @@ function listClickManager(eventObject) {
       doneItem(eventObject);
    };
 }
-console.log('Done');
-document.addEventListener('DOMContentLoaded', maintodo);
+
+document.addEventListener('DOMContentLoaded', mainQuest);
