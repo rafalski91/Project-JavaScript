@@ -1,7 +1,5 @@
 let $welcomePage, $buttonWelcome, $contApp, $questList, $questTitle, $questAdd, $pop, $popExit, $popOverlay;
 
-let id = 1;
-
 let date;
 n = new Date();
 y = n.getFullYear();
@@ -50,35 +48,16 @@ function slideUp(eventObject) {
    };
  }
 
-//  async function getQuestsBase() {
-//    let quests = await axios.get('http://195.181.210.249:3000/todo/');
-//    let newElement;
-//    newELement.innerText = quests.data.map(quests => quests.title).join(', ');
-//    $questList.appendChild(newElement);
-// }
-
-// async function getQuestsBase() {
-//    let quests = await axios.get('http://195.181.210.249:3000/todo/');
-//    console.log($questList.firstChild);
-//    let updateElement = createElement();
-//    console.log(updateElement)
-//    updateElement.classList('text').innerText = quests.data.map(quests => quests.title);
-//    console.log(updateElement)
-//    console.log($questList)
-//    $questList.appendChild(updateElement);
-// }
-
-
 async function getAllQuests() {
-   let quests = await axios.get('http://195.181.210.249:3000/todo/?author=RW');
-   var resultElement = $questList;
-   resultElement.innerHTML = '';
-   var uploadElement = createElement();
-   var cos = uploadElement.querySelector('.text');
-   cos.innerText = quests.data.map(quests => quests.title);
-   $questList.appendChild(uploadElement);
+   let quests = await axios.get('http://195.181.210.249:3000/todo/');
+   // var resultElement = $questList;
+   // // resultElement.innerHTML = '';
+   // filter(quest => quest.author === 'RW').
+    quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
+      newQuest(quest.title, quest.id)});
+   // $questList.appendChild(resultElement);
+   console.log(quests.data.filter(quest => quest.author === 'RW'))
    
-   console.log(quests);
  }
 
  async function addNewQuest() {
@@ -88,13 +67,10 @@ async function getAllQuests() {
    });
  }
 
- async function delNewQuest() {
-   let quests = await axios.get('http://195.181.210.249:3000/todo/');
-   let lastQuestId = quests.data[quests.data.length -1].id;
-   await axios.delete('http://195.181.210.249:3000/todo/' +lastQuestId, {
-      title: $questTitle.value,
-      author: 'RW',
-   });
+ async function delNewQuest(id) {
+   await axios.delete('http://195.181.210.249:3000/todo/' + id);
+   $questList.innerHTML = '';
+   getAllQuests();
  }
 
 function initialList() {
@@ -103,7 +79,7 @@ function initialList() {
    });
 }
 
-function addButton() {
+function addButton(id) {
    var isEmpty = false,
       tname = $questTitle.value;
    if (tname === "") {
@@ -111,7 +87,7 @@ function addButton() {
       isEmpty = true;
    };
    if (isEmpty === false) {
-      newQuest($questTitle.value);
+      newQuest($questTitle.value, id);
    };
    addNewQuest();
 }
@@ -125,20 +101,20 @@ function enterClickHandler(event) {
          isEmpty = true;
       };
       if (isEmpty === false) {
-         newQuest($questTitle.value);
+         newQuest($questTitle.value, quest.id);
       };
       addNewQuest();
    };
 }
 
-function newQuest(title) {
-   const newElement = createElement(title);
+function newQuest(title, id) {
+   const newElement = createElement(title, id);
    $questList.appendChild(newElement);
 }
 
 function createElement(title) {
    const newElement = document.createElement('li');
-   newElement.classList.add('Quest-' + id);
+   newElement.classList.add('Quest-');
    let dateElement = d + " / " + m + " / " + y;
    const textElement = document.createTextNode(dateElement + " - " + title);
    const spanElement = document.createElement('span');
@@ -160,17 +136,16 @@ function createElement(title) {
    doneElement.classList.add('done');
    doneElement.innerText = "Done";
    editElement.after(doneElement);
-   id++;
    return newElement;
 }
 
-function removeItem(eventObject) {
+function removeItem(eventObject, id) {
    let delBtn = eventObject.target.classList.contains('delete');
    if (delBtn === true) {
       var parent = eventObject.target.parentElement.parentElement;
       parent.remove(this);
    };
-   delNewQuest();
+   delNewQuest(id);
 }
 
 function doneItem(eventObject) {
