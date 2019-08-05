@@ -54,23 +54,29 @@ async function getAllQuests() {
    // // resultElement.innerHTML = '';
    // filter(quest => quest.author === 'RW').
     quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
-      newQuest(quest.title, quest.id)});
+      newQuest(quest.title, quest.id, quest.extra)});
    // $questList.appendChild(resultElement);
    console.log(quests.data.filter(quest => quest.author === 'RW'))
    
  }
 
- async function addNewQuest() {
-   await axios.post('http://195.181.210.249:3000/todo/', {
+ async function addNewQuest(id) {
+   await axios.post('http://195.181.210.249:3000/todo/' + id, {
       title: $questTitle.value,
       author: 'RW',
    });
  }
 
- async function delNewQuest(id) {
+ async function delQuest(id) {
    await axios.delete('http://195.181.210.249:3000/todo/' + id);
    $questList.innerHTML = '';
    getAllQuests();
+ }
+
+ async function doneQuest(id) {
+   await axios.put('http://195.181.210.249:3000/todo/' + id), {
+      extra: doneItem(pareDone),
+   }
  }
 
 function initialList() {
@@ -79,7 +85,7 @@ function initialList() {
    });
 }
 
-function addButton(id) {
+function addButton() {
    var isEmpty = false,
       tname = $questTitle.value;
    if (tname === "") {
@@ -87,7 +93,8 @@ function addButton(id) {
       isEmpty = true;
    };
    if (isEmpty === false) {
-      newQuest($questTitle.value, id);
+      newQuest($questTitle.value);
+      
    };
    addNewQuest();
 }
@@ -101,7 +108,8 @@ function enterClickHandler(event) {
          isEmpty = true;
       };
       if (isEmpty === false) {
-         newQuest($questTitle.value, quest.id);
+         newQuest($questTitle.value);
+         
       };
       addNewQuest();
    };
@@ -112,9 +120,9 @@ function newQuest(title, id) {
    $questList.appendChild(newElement);
 }
 
-function createElement(title) {
+function createElement(title, id) {
    const newElement = document.createElement('li');
-   newElement.classList.add('Quest-');
+   newElement.classList.add('Quest-' + id);
    let dateElement = d + " / " + m + " / " + y;
    const textElement = document.createTextNode(dateElement + " - " + title);
    const spanElement = document.createElement('span');
@@ -139,22 +147,25 @@ function createElement(title) {
    return newElement;
 }
 
-function removeItem(eventObject, id) {
+function removeItem(eventObject, idToDelete) {
    let delBtn = eventObject.target.classList.contains('delete');
    if (delBtn === true) {
       var parent = eventObject.target.parentElement.parentElement;
-      parent.remove(this);
+      console.log(parent);
+      parent.remove(idToDelete);
    };
-   delNewQuest(id);
+   delQuest(idToDelete);
 }
 
 function doneItem(eventObject) {
    let doneBtn = eventObject.target.classList.contains('done');
    var parents = eventObject.target.parentElement.parentElement;
    if (doneBtn === true && parents.firstChild.style.textDecoration !== 'line-through') {
-      parents.firstChild.style.textDecoration = 'line-through';
+      parents.firstChild.style.textDecoration = 'line-through',
+      pareDone = true;
    } else if (parents.firstChild.style.textDecoration == 'line-through') {
-      parents.firstChild.style.textDecoration = 'none';
+      parents.firstChild.style.textDecoration = 'none',
+      pareDone = false;
    };
 }
 
