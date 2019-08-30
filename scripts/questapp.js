@@ -60,7 +60,7 @@ async function getAllQuestsAndAddToList() {
 
    // questsID = quests.data.id
    
-   questsID = quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
+   quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
       newQuest(quest.title, quest.id)});
 }
 
@@ -93,9 +93,9 @@ function addButtonListener(event) {
       };
       if (isEmpty === false) {
          newQuest($questTitle.value);
-         
+         $questTitle.value = " ";
+         addNewQuest();
       };
-      addNewQuest();
    };
 }
 
@@ -160,26 +160,24 @@ function listClickManager(eventObject) {
 
 async function delQuest(idElement) { 
    await axios.delete('http://195.181.210.249:3000/todo/' + idElement); 
-   $questList.innerHTML = '';
-   getAllQuestsAndAddToList();
  }
 
 function removeItem() {
-      let elementTarget = event.target.parentElement.parentElement
-      let idElement = elementTarget.id
-      elementTarget.remove()
+      let buttonTarget = event.target.parentElement.parentElement
+      let idElement = buttonTarget.id
+      buttonTarget.remove()
       delQuest(idElement);
    };
-  
+
 
 
 //-------- API EDIT ----------------------------->
 
-async function editQuest() {
+async function editQuest(idElement, textElement) {
    await axios.put('http://195.181.210.249:3000/todo/' + idElement, {
-      title: 'qwerty',
+      title: textElement.innerText,
    });
-   getAllQuestsAndAddToList();
+   debugger;
  }
 
 function editItem() {
@@ -195,8 +193,9 @@ function editItem() {
 
 async function doneQuest(pareDone) {
    await axios.put('http://195.181.210.249:3000/todo/', {
-      extra: pareDone ? true : false
+      extra: pareDone.value
    })
+   debugger;
  }
 
 function doneItem() {
@@ -208,7 +207,10 @@ function doneItem() {
    } else if (parents.firstChild.style.textDecoration == 'line-through') {
       parents.firstChild.style.textDecoration = 'none',
       pareDone = false;
+      doneQuest(pareDone)
+      debugger;
    };
+
 }
 
 //-------- POPUP ----------------------------->
@@ -244,6 +246,9 @@ function addText(eventObject) {
    };
    var extraClass = document.querySelector('.newText');
    extraClass.classList.remove('newText');
+   let idElement = editedText.id
+   let textElement = editedText.innerText
+   editQuest(idElement, editedText, textElement)
 }
 
 document.addEventListener('DOMContentLoaded', mainQuest)
