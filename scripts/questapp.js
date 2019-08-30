@@ -17,6 +17,7 @@ function mainQuest() {
    pickDOMEelements();
    listenerDOMEvents();
    initialList();
+   
 }
 
 function pickDOMEelements() {
@@ -48,40 +49,42 @@ function slideUp(eventObject) {
      $welcomePage.style.height = '0';
      $contApp.style.display = "block";
      $contApp.style.marginTop = "0";
-     getAllQuests();
+     getAllQuestsAndAddToList();
    };
  }
 
- //-------- API SERVER ----------------------------->
+ //-------- API GET ----------------------------->
 
-async function getAllQuests() {
+async function getAllQuestsAndAddToList() {
    let quests = await axios.get('http://195.181.210.249:3000/todo/');
-   // // resultElement.innerHTML = '';
-   // filter(quest => quest.author === 'RW').
-    quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
-      newQuest(quest.title, quest.id, quest.extra)});
-   console.log(quests.data.filter(quest => quest.author === 'RW'))
    
- }
+   
+    quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
+      newQuest(quest.title, quest.id)});
+      
+     const idElement = quests.data.filter(quest => quest.author === 'RW')
+     const ob = [];
+     idElement.forEach(object =>{
+      return ob[object.id]
+      console.log(ob);
+     })
+     
+     idElement.forEach(quest => {
+      ob[quest.id]});
+     idElement.forEach(function(id) {
+        if (!ob.hasOwnProperty(id)) {
+           ob[id] = 0;
+        }
+        ob[id]++;
+     })
+     console.log(ob);
+     debugger;
+     }
+   //   idElement = function(){
+   //    return this.id
 
- async function addNewQuest(id) {
-   await axios.post('http://195.181.210.249:3000/todo/' + id), {
-      title: $questTitle.value,
-      author: 'RW',
-   };
- }
-
- async function delQuest() {
-   await axios.delete('http://195.181.210.249:3000/todo/');
-   $questList.innerHTML = '';
-   getAllQuests();
- }
-
- async function doneQuest(id) {
-   await axios.put('http://195.181.210.249:3000/todo/' + id), {
-      extra: doneItem(pareDone),
-   }
- }
+      
+  
 
 //-------- ADD / CREATE NEW TASK ----------------------------->
 
@@ -89,6 +92,16 @@ function initialList() {
    const intList = ['Dodawaj, edytuj, usuwaj, oznaczaj zadania'];
    intList.forEach(quest => {
       newQuest(quest);
+   });
+}
+
+ //-------- API POST ----------------------------->
+
+async function addNewQuest(pareDone) {
+   await axios.post('http://195.181.210.249:3000/todo/', {
+      title: $questTitle.value,
+      author: 'RW',
+      // extra: doneQuest(pareDone),
    });
 }
 
@@ -115,56 +128,84 @@ function newQuest(title, id) {
 
 function createElement(title, id) {
    const newElement = document.createElement('li');
-   newElement.classList.add('Quest-' + id);
-   let dateElement = d + " / " + m + " / " + y;
-   const textElement = document.createTextNode(dateElement + " - " + title);
+   newElement.setAttribute("id", id)
+   newElement.classList.add('Quest-') + id;
+   const textElement = document.createTextNode(title);
    const spanElement = document.createElement('span');
+   spanElement.setAttribute("id", id)
    spanElement.classList.add('text');
    newElement.appendChild(spanElement);
    spanElement.appendChild(textElement);
    const divElement = document.createElement('div');
+   divElement.setAttribute("id", id)
    divElement.classList.add('buttons');
    spanElement.after(divElement);
    const deleteElement = document.createElement('button');
-   deleteElement.classList.add('delete');
+   deleteElement.setAttribute("id", id)
+   deleteElement.classList.add('delete-') + id;
    deleteElement.innerText = "Delete";
    divElement.appendChild(deleteElement);
    const editElement = document.createElement('button');
-   editElement.classList.add('edit');
+   editElement.setAttribute("id", id)
+   editElement.classList.add('edit-')+ id;
    editElement.innerText = "Edit";
    deleteElement.after(editElement);
    const doneElement = document.createElement('button');
-   doneElement.classList.add('done');
+   doneElement.setAttribute("id", id)
+   doneElement.classList.add('done-') + id;
    doneElement.innerText = "Done";
    editElement.after(doneElement);
    return newElement;
 }
 
 //-------- BUTTONS ----------------------------->
+//-------- API DELETE ----------------------------->
 
-function removeItem(eventObject, id) {
-   let delBtn = eventObject.target.classList.contains('delete');
-   if (delBtn === true) {
-      var parent = eventObject.target.parentElement.parentElement;
-      console.log(parent);
-      parent.remove(id);
+async function delQuest() {
+   // debugger;
+      console.log(this.id)
+   await axios.delete('http://195.181.210.249:3000/todo/' + idElement); 
+   $questList.innerHTML = '',
+   getAllQuestsAndAddToList();
+ }
+
+function removeItem() {
+      let elementTarget = event.target.parentElement.parentElement
+      elementTarget.remove()
    };
-   delQuest();
-}
+   // delQuest();
 
-function editItem(eventObject) {
-   let editBtn = eventObject.target.classList.contains('edit');
-   if (editBtn === true) {
+
+//-------- API EDIT ----------------------------->
+
+async function editQuest() {
+   await axios.put('http://195.181.210.249:3000/todo/' + idElement, {
+      title: 'qwerty',
+   });
+   getAllQuestsAndAddToList();
+ }
+
+function editItem() {
+   let buttonTarget = event.target.classList
+   if (buttonTarget == "edit-") {
       $pop.style.display = 'block';
       $popExit.style.display = 'block';
       $popOverlay.style.display = 'block';
    };
 }
 
-function doneItem(eventObject) {
-   let doneBtn = eventObject.target.classList.contains('done');
-   var parents = eventObject.target.parentElement.parentElement;
-   if (doneBtn === true && parents.firstChild.style.textDecoration !== 'line-through') {
+//-------- API DONE ----------------------------->
+
+async function doneQuest(pareDone) {
+   await axios.put('http://195.181.210.249:3000/todo/', {
+      extra: pareDone ? true : false
+   })
+ }
+
+function doneItem() {
+   let buttonTarget = event.target.classList
+   var parents = event.target.parentElement.parentElement;
+   if (buttonTarget == 'done-' && parents.firstChild.style.textDecoration !== 'line-through') {
       parents.firstChild.style.textDecoration = 'line-through',
       pareDone = true;
    } else if (parents.firstChild.style.textDecoration == 'line-through') {
@@ -174,19 +215,20 @@ function doneItem(eventObject) {
 }
 
 function listClickManager(eventObject) {
-   if (eventObject.target.className === 'delete') {
-      removeItem(eventObject);
+   let buttonTarget = eventObject.target.classList
+   if (buttonTarget == "delete-") {
+      removeItem();
    };
-   if (eventObject.target.className === 'edit') {
-      editItem(eventObject);
+   if (buttonTarget == "edit-") {
+      editItem();
       var editText = eventObject.target.parentNode.parentNode.querySelector('.text').textContent;
       var saveElement = eventObject.target.parentNode.parentNode.querySelector('.text');
       saveElement.classList.add('newText');
       var textToEdit = $pop.querySelector('#popuptitle');
       textToEdit.value = editText;
    };
-   if (eventObject.target.className === 'done') {
-      doneItem(eventObject);
+   if (buttonTarget == "done-") {
+      doneItem();
    };
 }
 
@@ -225,4 +267,6 @@ function addText(eventObject) {
    extraClass.classList.remove('newText');
 }
 
-document.addEventListener('DOMContentLoaded', mainQuest);
+document.addEventListener('DOMContentLoaded', mainQuest)
+   
+
