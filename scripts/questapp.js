@@ -57,34 +57,12 @@ function slideUp(eventObject) {
 
 async function getAllQuestsAndAddToList() {
    let quests = await axios.get('http://195.181.210.249:3000/todo/');
-   
-   
-    quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
-      newQuest(quest.title, quest.id)});
-      
-     const idElement = quests.data.filter(quest => quest.author === 'RW')
-     const ob = [];
-     idElement.forEach(object =>{
-      return ob[object.id]
-      console.log(ob);
-     })
-     
-     idElement.forEach(quest => {
-      ob[quest.id]});
-     idElement.forEach(function(id) {
-        if (!ob.hasOwnProperty(id)) {
-           ob[id] = 0;
-        }
-        ob[id]++;
-     })
-     console.log(ob);
-     debugger;
-     }
-   //   idElement = function(){
-   //    return this.id
 
-      
-  
+   // questsID = quests.data.id
+   
+   questsID = quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
+      newQuest(quest.title, quest.id)});
+}
 
 //-------- ADD / CREATE NEW TASK ----------------------------->
 
@@ -159,21 +137,40 @@ function createElement(title, id) {
 }
 
 //-------- BUTTONS ----------------------------->
+
+function listClickManager(eventObject) {
+   let buttonTarget = eventObject.target.classList
+   if (buttonTarget == "delete-") {
+      removeItem();
+   };
+   if (buttonTarget == "edit-") {
+      editItem();
+      var editText = eventObject.target.parentNode.parentNode.querySelector('.text').textContent;
+      var saveElement = eventObject.target.parentNode.parentNode.querySelector('.text');
+      saveElement.classList.add('newText');
+      var textToEdit = $pop.querySelector('#popuptitle');
+      textToEdit.value = editText;
+   };
+   if (buttonTarget == "done-") {
+      doneItem();
+   };
+}
+
 //-------- API DELETE ----------------------------->
 
-async function delQuest() {
-   // debugger;
-      console.log(this.id)
+async function delQuest(idElement) { 
    await axios.delete('http://195.181.210.249:3000/todo/' + idElement); 
-   $questList.innerHTML = '',
+   $questList.innerHTML = '';
    getAllQuestsAndAddToList();
  }
 
 function removeItem() {
       let elementTarget = event.target.parentElement.parentElement
+      let idElement = elementTarget.id
       elementTarget.remove()
+      delQuest(idElement);
    };
-   // delQuest();
+  
 
 
 //-------- API EDIT ----------------------------->
@@ -211,24 +208,6 @@ function doneItem() {
    } else if (parents.firstChild.style.textDecoration == 'line-through') {
       parents.firstChild.style.textDecoration = 'none',
       pareDone = false;
-   };
-}
-
-function listClickManager(eventObject) {
-   let buttonTarget = eventObject.target.classList
-   if (buttonTarget == "delete-") {
-      removeItem();
-   };
-   if (buttonTarget == "edit-") {
-      editItem();
-      var editText = eventObject.target.parentNode.parentNode.querySelector('.text').textContent;
-      var saveElement = eventObject.target.parentNode.parentNode.querySelector('.text');
-      saveElement.classList.add('newText');
-      var textToEdit = $pop.querySelector('#popuptitle');
-      textToEdit.value = editText;
-   };
-   if (buttonTarget == "done-") {
-      doneItem();
    };
 }
 
