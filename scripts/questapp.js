@@ -1,6 +1,6 @@
 //-------- let $sample = DOM ELEMENTS ----------------------------->
 
-let $welcomePage, $buttonWelcome, $contApp, $questList, $questTitle, $questAdd, $pop, $popExit, $popOverlay;
+let $welcomePage, $buttonWelcome, $contApp, $questList, $questTitle, $questAdd, $pop, $popExit, $popOverlay, questDecoration;
 
 //-------- UPLOAD LOCAL DATE ----------------------------->
 
@@ -57,29 +57,18 @@ function slideUp(eventObject) {
 
 async function getAllQuestsAndAddToList() {
    let quests = await axios.get('http://195.181.210.249:3000/todo/');
-
-   // questsID = quests.data.id
    
    quests.data.filter(quest => quest.author === 'RW').forEach(quest => {
-      newQuest(quest.title, quest.id)});
+      newQuest(quest.title, quest.id, quest.extra)});
 }
 
 //-------- ADD / CREATE NEW TASK ----------------------------->
-
-function initialList() {
-   const intList = ['Dodawaj, edytuj, usuwaj, oznaczaj zadania'];
-   intList.forEach(quest => {
-      newQuest(quest);
-   });
-}
-
  //-------- API POST ----------------------------->
 
-async function addNewQuest(pareDone) {
+async function addNewQuest() {
    await axios.post('http://195.181.210.249:3000/todo/', {
       title: $questTitle.value,
       author: 'RW',
-      // extra: doneQuest(pareDone),
    });
 }
 
@@ -93,24 +82,25 @@ function addButtonListener(event) {
       };
       if (isEmpty === false) {
          newQuest($questTitle.value);
-         $questTitle.value = " ";
          addNewQuest();
       };
+      $questTitle.value = " ";
    };
 }
 
-function newQuest(title, id) {
-   const newElement = createElement(title, id);
+function newQuest(title, id, extra) {
+   const newElement = createElement(title, id, extra);
    $questList.appendChild(newElement);
 }
 
-function createElement(title, id) {
+function createElement(title, id, extra) {
    const newElement = document.createElement('li');
    newElement.setAttribute("id", id)
    newElement.classList.add('Quest-') + id;
    const textElement = document.createTextNode(title);
    const spanElement = document.createElement('span');
    spanElement.setAttribute("id", id)
+   spanElement.setAttribute("style", extra)
    spanElement.classList.add('text');
    newElement.appendChild(spanElement);
    spanElement.appendChild(textElement);
@@ -177,7 +167,6 @@ async function editQuest(idElement, textElement) {
    await axios.put('http://195.181.210.249:3000/todo/' + idElement, {
       title: textElement.innerText,
    });
-   debugger;
  }
 
 function editItem() {
@@ -191,26 +180,32 @@ function editItem() {
 
 //-------- API DONE ----------------------------->
 
-async function doneQuest(pareDone) {
-   await axios.put('http://195.181.210.249:3000/todo/', {
-      extra: pareDone.value
+async function doneQuest(questDecoration, parentsID) {
+   await axios.put('http://195.181.210.249:3000/todo/' + parentsID, {
+      extra: questDecoration
    })
-   debugger;
  }
 
 function doneItem() {
    let buttonTarget = event.target.classList
    var parents = event.target.parentElement.parentElement;
+   let parentsID = parents.id
+   let pareDone = false;
    if (buttonTarget == 'done-' && parents.firstChild.style.textDecoration !== 'line-through') {
       parents.firstChild.style.textDecoration = 'line-through',
       pareDone = true;
+      if (pareDone === true){
+        questDecoration = "text-decoration: line-through;"
+      }
    } else if (parents.firstChild.style.textDecoration == 'line-through') {
       parents.firstChild.style.textDecoration = 'none',
       pareDone = false;
-      doneQuest(pareDone)
-      debugger;
+      if (pareDone === false){
+        questDecoration = "text-decoration: none;"
+      }
    };
-
+   
+   doneQuest(questDecoration, parentsID)
 }
 
 //-------- POPUP ----------------------------->
